@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NextCue</title>
+  <meta name="description" content="作業の次の一手を端末内で管理 / Keep your next move on your device">
+  <style>
+    :root {
+      --bg: #f7f8fa;
+      --text: #1c1c1e;
+      --muted: #555;
+      --accent: #ff8c42;
+      --accent-dark: #e06f25;
+      --card: #fff;
+      --border: #e1e4e8;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Segoe UI", Roboto, sans-serif;
+      line-height: 1.7;
+      color: var(--text);
+      background: var(--bg);
+    }
+    header {
+      background: var(--card);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .header-inner {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 1rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .brand { font-weight: 700; font-size: 1.25rem; color: var(--text); text-decoration: none; }
+    .lang-switch { display: flex; gap: .5rem; }
+    .lang-switch button {
+      border: 1px solid var(--border);
+      background: var(--card);
+      border-radius: .5rem;
+      padding: .35rem .75rem;
+      cursor: pointer;
+      font: inherit;
+      color: var(--muted);
+    }
+    .lang-switch button[aria-pressed="true"] { border-color: var(--accent-dark); color: #fff; background: var(--accent); }
+    main { max-width: 760px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+    h1 { font-size: 1.75rem; margin: 0 0 .75rem; }
+    h2 { font-size: 1.25rem; margin: 2rem 0 .75rem; }
+    p { margin: .75rem 0; }
+    a { color: var(--accent-dark); }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: .75rem; padding: 1.25rem; margin: 1.25rem 0; }
+    footer { text-align: center; padding: 2rem 1rem; color: var(--muted); font-size: .875rem; }
+    [lang] { display: none; }
+    html[lang="ja"] [lang="ja"], html[lang="en"] [lang="en"] { display: block; }
+    html[lang="ja"] nav [lang="ja"], html[lang="en"] nav [lang="en"] { display: inline; }
+    @media (max-width: 480px) { h1 { font-size: 1.4rem; } .header-inner { padding: .75rem 1rem; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <a class="brand" href="index.html">NextCue</a>
+      <nav class="lang-switch" aria-label="Language switcher">
+        <button type="button" data-lang="ja" aria-pressed="true">
+          <span lang="ja">日本語</span><span lang="en">Japanese</span>
+        </button>
+        <button type="button" data-lang="en" aria-pressed="false">
+          <span lang="ja">English</span><span lang="en">English</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <h1>
+      <span lang="ja">作業の「次の一手」を端末内で管理</span>
+      <span lang="en">Keep your next move, on your device</span>
+    </h1>
+    <p>
+      <span lang="ja">NextCueは、作業の中断地点を「しおり」として記録し、次に取り組むべき「次の一手」を提示するiOSアプリです。</span>
+      <span lang="en">NextCue is an iOS app that bookmarks where your work stops and shows the next step to resume it.</span>
+    </p>
+    <div class="card">
+      <h2>
+        <span lang="ja">データは端末内に留まります</span>
+        <span lang="en">Your data stays on your device</span>
+      </h2>
+      <p>
+        <span lang="ja">Cueや通知はすべてiPhone/iPad内に保存され、外部サーバーに送信されることはありません。広告、アカウント、分析、追跡も行いません。</span>
+        <span lang="en">Your Cues and reminders are stored only on your iPhone or iPad. Nothing is sent to external servers. No ads, accounts, analytics, or tracking.</span>
+      </p>
+    </div>
+    <div class="card">
+      <h2>
+        <span lang="ja">さらに詳しく</span>
+        <span lang="en">Learn more</span>
+      </h2>
+      <ul>
+        <li><a href="privacy.html">Privacy Policy / プライバシーポリシー</a></li>
+        <li><a href="support.html">Support / サポート</a></li>
+      </ul>
+    </div>
+  </main>
+  <footer>
+    <span lang="ja">© 2026 NextCue. 全ての権利を留保します。</span>
+    <span lang="en">© 2026 NextCue. All rights reserved.</span>
+  </footer>
+  <script>
+    (function(){
+      const html = document.documentElement;
+      const saved = localStorage.getItem('nextcue-lang');
+      const set = (lang) => { html.lang = lang; localStorage.setItem('nextcue-lang', lang); };
+      if (saved && (saved === 'ja' || saved === 'en')) set(saved);
+      document.querySelectorAll('.lang-switch button').forEach(btn => {
+        btn.addEventListener('click', () => set(btn.dataset.lang));
+      });
+    })();
+  </script>
+</body>
+</html>
